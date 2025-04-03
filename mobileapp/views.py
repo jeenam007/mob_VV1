@@ -26,7 +26,7 @@ def edit_pdtlist(request,id):
     instance_edit=Mobile.objects.get(id=id)
 
     if request.POST:
-        form=ProductCreateForm(request.POST,instance=instance_edit)
+        form=ProductCreateForm(request.POST,request.FILES,instance=instance_edit)
         if form.is_valid():
           form.save()
           return redirect('list')
