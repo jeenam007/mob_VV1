@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+{%load static%}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,7 +35,7 @@
         }
         .content {
             padding: 20px;
-            background-color:#814897;
+            background-color:#A7AD85;
             color:white;
             margin: 20px;
             border-radius: 8px;
@@ -67,6 +68,12 @@
     <h2>About Us</h2>
     <p>This is a simple HTML page designed with basic elements such as header, navigation, content section, and footer.</p>
     <p>You can add product ,edit, delete and view it.</p>
+    <p><img src="{% static 'img/s24.jpeg' %}" alt="My Image" width:100px,height:140px;>&nbsp;&nbsp;&nbsp;
+        <img src="{% static 'img/iph15.jpeg' %}" alt="My Image" width:100px,height:140px;> &nbsp;&nbsp;&nbsp;
+        <img src="{% static 'img/moto.jpeg' %}" alt="My Image" width:100px,height:140px;> &nbsp;&nbsp;&nbsp;
+        <img src="{% static 'img/oppo reno.jpeg' %}" alt="My Image" width:100px,height:140px;> &nbsp;&nbsp;&nbsp;
+        <img src="{% static 'img/oneplus13.jpeg' %}" alt="My Image" width:100px,height:140px;> &nbsp;&nbsp;&nbsp;
+    </p>
 </div>
 
 <footer>
