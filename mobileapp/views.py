@@ -16,11 +16,12 @@ def create_product(request):
     elif request.method=="POST":
         form=ProductCreateForm(request.POST,files=request.FILES)
 
-    if form.is_valid():
-        form.save()
-        return redirect('list')
-    else:
-         return render(request,'create.html',{'form':form})
+        if form.is_valid():
+            form.save()
+            return redirect('list')
+        else:
+            
+            return render(request,'create.html',{'form':form})
     
 def edit_pdtlist(request,id):
     instance_edit=Mobile.objects.get(id=id)

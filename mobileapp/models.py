@@ -13,7 +13,7 @@ class Mobile(models.Model):
     mobile_name=models.CharField(max_length=70,unique=True)
     brand=models.ForeignKey(Brand,on_delete=models.CASCADE)
     price=models.IntegerField()
-    specs=models.CharField(max_length=200)
+    specs = models.TextField()
     image=models.ImageField(upload_to='images/')
     date=models.DateField(auto_now=True)
 
