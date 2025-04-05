@@ -1,26 +1,13 @@
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ mobile.mobile_name }} - Details</title>
-</head>
-<body>
-    <h1>{{ mobile.mobile_name }}</h1>
-    <p><strong>Price:</strong> ${{ mobile.price }}</p>
-    <p><strong>Brand:</strong> {{ mobile.brand }}</p>
-    <p><strong>Description:</strong> {{ mobile.specs }}</p>
-    <p><strong>Image:</strong> <img src="{{ mobile.image.url }}" alt="img" style="height:50px;"></p>
-    <p><strong>Created Date:</strong>{{mobile.date}}<br><br>
-    <a href="{% url 'list' %}">Back to List</a>
-</body>
-</html> {% endcomment %}
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ mobile.mobile_name }} - Details</title>
+<link rel="icon" href="{% static 'img/fav.png' %}" >
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -87,7 +74,7 @@
             <p><strong>Description:</strong> {{ mobile.specs }}</p>
             <p><strong>Created Date:</strong> {{ mobile.date }}</p>
         </div>
-        <a href="{% url 'list' %}" class="back-link">Back to List</a>
+        <a href="{% url 'mobileapp:list' %}" class="back-link">Back to List</a>
     </div>
 </body>
 </html>
