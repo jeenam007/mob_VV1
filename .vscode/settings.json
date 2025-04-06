@@ -1,0 +1,11 @@
+{
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.syntaxProfiles": {},
+    "emmet.includeLanguages": {
+  "javascript": "html",
+  "vue-html": "html",
+  "plaintext": "html",
+  "django-html":"html",
+}
+}
