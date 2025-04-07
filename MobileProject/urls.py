@@ -19,10 +19,12 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from mobileapp.views import home
+from customerapp.views import sign_out
 
 
 urlpatterns = [
-    path('', home),
+    # path('', home),
+    path('', sign_out),
     path('admin/', admin.site.urls),
     path('mobile/',include('mobileapp.urls')),
     path('user/',include('customerapp.urls')),

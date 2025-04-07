@@ -1,16 +1,22 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .forms import UserRegistrationForm,User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login,logout
+from .forms import LoginForm
+
+
 
 
 # Create your views here.
 def registration(request):
     
     if request.method =="POST":
-     form=UserRegistrationForm(request.POST)
-     if form.is_valid():
+       form=UserRegistrationForm(request.POST)
+       if form.is_valid():
           form.save()
-          return redirect("customerapp:userlist")
+          messages.success(request, "User registered successfully!")
+          return redirect("customerapp:userlogin")
     else:
           form=UserRegistrationForm()
     return render(request,'user/registration.html',{'form':form})
@@ -25,6 +31,7 @@ def useredit(request,id):
           form=UserRegistrationForm(request.POST,instance=instance_edituser)
           if form.is_valid():
                form.save()
+               messages.success(request, "User updated successfully!")
           return redirect('customerapp:userlist')
      else:
           form=UserRegistrationForm(instance=instance_edituser)
@@ -35,10 +42,47 @@ def useredit(request,id):
 def userdelete(request,id):
      instance=User.objects.get(id=id)
      instance.delete()
+     messages.success(request, "User deleted successfully!")
      return redirect('customerapp:userlist')
 
 def userdet(request,id):
-     return HttpResponse("<h1>view</h1>")
+     usrlst=User.objects.get(id=id)
+     return render(request,'user/userdet.html',{'usrlst':usrlst})
+
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from .forms import LoginForm
+
+def login_view(request,*args,**kwargs):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                print('login success')
+                return redirect('mobileapp:home')
+            else:
+                print('login failed')
+                form.add_error(None, "Invalid username or password")
+    else:
+        form = LoginForm()
+
+    return render(request, 'user/login.html', {'form': form})
+
+def sign_out(request):
+     logout(request)
+     return redirect('customerapp:userlogin')
+
+
+
+
+
+
 
    
 

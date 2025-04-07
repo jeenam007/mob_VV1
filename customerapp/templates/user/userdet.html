@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ usrlst.username }} - Profile</title>
+  <link rel="icon" href="{% static 'img/fav.png' %}">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #ece9e6, #ffffff);
+      color: #333;
+    }
+
+    .profile-card {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .profile-header h1 {
+      margin: 0;
+      font-size: 2em;
+      color: #007BFF;
+    }
+
+    .profile-details p {
+      font-size: 1.1em;
+      margin: 12px 0;
+    }
+
+    .profile-details strong {
+      display: inline-block;
+      width: 120px;
+      color: #555;
+    }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .back-btn a {
+      text-decoration: none;
+      background-color: #007BFF;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-card">
+    <div class="profile-header">
+      <h1>{{ usrlst.username }}</h1>
+    </div>
+
+    <div class="profile-details">
+      <p><strong>First Name:</strong> {{ usrlst.first_name }}</p>
+      <p><strong>Last Name:</strong> {{ usrlst.last_name }}</p>
+      <p><strong>Email:</strong> {{ usrlst.email }}</p>
+    </div>
+
+    <div class="back-btn">
+      <a href="{% url 'customerapp:userlist' %}">← Back to List</a>
+    </div>
+  </div>
+
+</body>
+</html>
+

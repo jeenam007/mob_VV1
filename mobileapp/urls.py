@@ -4,7 +4,7 @@ from .import views
 app_name = 'mobileapp'
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('home/', views.home, name='home'),
     path('create/',views.create_product,name='create'),
     path('list/',views.list_Products,name='list'),
     path('delete/<int:id>/', views.deletepdt, name='delete'),
