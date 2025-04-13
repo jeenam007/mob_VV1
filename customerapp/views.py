@@ -4,11 +4,11 @@ from .forms import UserRegistrationForm,User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from .forms import LoginForm
-
-
+from mobileapp.decorators import login_required
 
 
 # Create your views here.
+
 def registration(request):
     
     if request.method =="POST":
@@ -16,9 +16,11 @@ def registration(request):
        if form.is_valid():
           form.save()
           messages.success(request, "User registered successfully!")
-          return redirect("customerapp:userlogin")
+          return redirect("customerapp:userlist")
+       else:
+          messages.error(request,"Registration failed.")
     else:
-          form=UserRegistrationForm()
+        form=UserRegistrationForm()
     return render(request,'user/registration.html',{'form':form})
 
 def userlist(request):
@@ -49,12 +51,6 @@ def userdet(request,id):
      usrlst=User.objects.get(id=id)
      return render(request,'user/userdet.html',{'usrlst':usrlst})
 
-
-
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from .forms import LoginForm
-
 def login_view(request,*args,**kwargs):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -65,10 +61,12 @@ def login_view(request,*args,**kwargs):
             if user:
                 login(request, user)
                 print('login success')
+                
                 return redirect('mobileapp:home')
             else:
                 print('login failed')
-                form.add_error(None, "Invalid username or password")
+                messages.error(request, "Invalid username or password")
+                
     else:
         form = LoginForm()
 
@@ -76,7 +74,13 @@ def login_view(request,*args,**kwargs):
 
 def sign_out(request):
      logout(request)
+    
      return redirect('customerapp:userlogin')
+
+def home_v(request):
+    return render(request, 'user/index1.html')
+
+
 
 
 

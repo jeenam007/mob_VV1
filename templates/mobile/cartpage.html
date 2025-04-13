@@ -1,0 +1,50 @@
+{% extends 'mobile/index.html' %}
+
+{% block welcome_message %}
+<h5>My Cart</h5>
+{% endblock %}
+
+{% block body_block %}
+<div style="background-color: #CECECE; min-height: 100vh; padding-top: 20px;">
+ 
+<div class="container mt-4">
+  <div class="row">
+    {% for cart_item in cart_items %}
+      <div class="col-12 col-md-3 d-flex justify-content-center mb-4">
+        <div class="card" style="width: 14rem;">
+          <img src="{{ cart_item.product.image.url }}" class="card-img-top" alt="...">
+          <div class="card-body p-2">
+            <h6 class="card-title mb-1">Mobile Name: {{ cart_item.product.mobile_name }}</h6>
+            <p class="card-text mb-1">Price: ₹{{ cart_item.product.price }}</p>
+            <p class="card-text mb-2">Status: {{ cart_item.status }}</p>
+            <div class="d-flex align-items-center mb-2">
+              <a href="{% url 'mobileapp:decrease_quantity' cart_item.product.id %}" class="btn btn-sm btn-outline-secondary me-2">−</a>
+              <span>{{ cart_item.quantity }}</span>
+              <a href="{% url 'mobileapp:addcart' cart_item.product.id %}" class="btn btn-sm btn-outline-secondary ms-2">+</a>
+            </div>
+            {% comment %} <a href="{% url 'mobileapp:place_order' cart_item.id %}" class="btn btn-sm btn-primary">Place Order</a> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% if cart_items %}
+<div class="row mt-4 justify-content-center text-center">
+  <div class="col-md-6">
+    <!-- Total Display -->
+    <div class="btn w-100 mb-3" style="background-color:#060270; color:white; pointer-events: none;">
+      Total: ₹{{ total_price }}
+    </div>
+
+    <!-- Place Order Button -->
+   
+    <a href="{% url 'mobileapp:place_order' cart_items.0.id %}" class="btn"style="background-color:#060270; color:white;" >
+        Place Order
+      </a>
+    {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}
+

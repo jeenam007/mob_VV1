@@ -1,0 +1,38 @@
+{% extends 'mobile/index.html' %}
+
+{% block welcome_message %}
+<h5>Order Summary</h5>
+{% endblock %}
+
+{% block body_block %}
+{% for order in orders %}
+<div class="col-12 col-sm-6 col-md-3 mb-4">
+  {% comment %} <div class="card mb-4"> {% endcomment %}
+    <div class="card-header bg-primary text-white py-2">
+        <small><strong> Order ID:</strong> {{ order.order_id|default:"N/A" }}</small>
+    </div>
+    <div class="card-body">
+      {% for item in order.items %}
+        <div class="row mb-2 align-items-center">
+          <div class="col-md-6 text-start">
+            <strong>{{ item.product.mobile_name }}</strong><br>
+            Quantity: {{ item.quantity }}<br>
+            Price: ₹{{ item.product.price }}<br>
+          </div>
+        </div>
+        <hr>
+      {% endfor %}
+      <h5 class="text-end">Total: ₹{{ order.total }}</h5>
+    </div>
+  </div>
+{% empty %}
+  <p class="text-center">No orders placed yet.</p>
+{% endfor %}
+{% endblock %}
+
+
+
+
+
+
+

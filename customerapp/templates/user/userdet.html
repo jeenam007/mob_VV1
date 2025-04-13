@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ usrlst.username }} - Profile</title>
-  <link rel="icon" href="{% static 'img/fav.png' %}">
 
+  {% extends 'mobile/index.html' %}
+
+  {% block welcome_message %}
+  <h1>User Details</h1>
+  {% endblock %}
+  {% block body_block %}
   <style>
     * {
       box-sizing: border-box;
@@ -77,8 +75,8 @@
       background-color: #0056b3;
     }
   </style>
-</head>
-<body>
+{% comment %} </head>
+<body> {% endcomment %}
 
   <div class="profile-card">
     <div class="profile-header">
@@ -95,7 +93,7 @@
       <a href="{% url 'customerapp:userlist' %}">← Back to List</a>
     </div>
   </div>
-
-</body>
-</html>
+  {% endblock %}
+{% comment %} </body>
+</html> {% endcomment %}
 
