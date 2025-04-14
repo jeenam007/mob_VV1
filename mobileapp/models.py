@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 # Create your models here.
 
@@ -25,13 +27,26 @@ class Cart(models.Model):
    user=models.CharField(max_length=120)
    quantity = models.PositiveIntegerField(default=1)
    order_id = models.CharField(max_length=100, blank=True, null=True) 
+   purchased_date = models.DateTimeField(default=timezone.now)
    STATUS_CHOICES = (
         ("cart", "Cart"),
         ("orderplaced", "Order Placed"),
     )
   
    status = models.CharField(max_length=120, choices=STATUS_CHOICES, default="cart")
-  #  def __str__(self):
-  #       return f"{self.user} - {self.product.name} ({self.status})"
+   ORDER_STATUS_CHOICES = (
+        ('ordered', 'Ordered'),
+        ('packed', 'Packed'),
+        ('shipped', 'Shipped'),
+        ('delivered', 'Delivered'),
+        ('cancelled', 'Cancelled'),
+    )
+   order_status = models.CharField(max_length=50, choices=ORDER_STATUS_CHOICES, default='ordered')
+   customer_name=models.CharField(max_length=100,blank=True,null=True)
+   address = models.CharField(max_length=300, blank=True, null=True)
+   mob_no = models.BigIntegerField(blank=True, null=True)
+   email_id=models.EmailField(blank=True,null=True)
    def get_total_price(self):
         return self.quantity * self.product.price
+   
+  

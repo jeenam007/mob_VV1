@@ -6,28 +6,33 @@
 
 {% block body_block %}
 {% for order in orders %}
-<div class="col-12 col-sm-6 col-md-3 mb-4">
-  {% comment %} <div class="card mb-4"> {% endcomment %}
-    <div class="card-header bg-primary text-white py-2">
-        <small><strong> Order ID:</strong> {{ order.order_id|default:"N/A" }}</small>
-    </div>
-    <div class="card-body">
-      {% for item in order.items %}
-        <div class="row mb-2 align-items-center">
-          <div class="col-md-6 text-start">
-            <strong>{{ item.product.mobile_name }}</strong><br>
-            Quantity: {{ item.quantity }}<br>
-            Price: ₹{{ item.product.price }}<br>
-          </div>
-        </div>
-        <hr>
-      {% endfor %}
-      <h5 class="text-end">Total: ₹{{ order.total }}</h5>
-    </div>
+<div class="card mb-4">
+  <div class="card-header py-2" style="background-color:#060270; color:white">
+    <strong>Order ID:</strong>{{ order.order_id|default:"N/A" }}<br>
+    <strong>Purchased:</strong> {{ order.purchased_date|date:"Y-m-d h:i A" }}<br>
+    <strong>User:</strong> {{ order.username }}<br>  {# ✅ This line #}
   </div>
-{% empty %}
-  <p class="text-center">No orders placed yet.</p>
+  <div>
+    <strong>Customer Name:</strong> {{ order.customer_name|default:""  }}<br>
+    <strong>Mobile No. :</strong> {{ order.mob_no|default:""  }}<br>
+    <strong>Email:</strong> {{ order.email_id |default:"" }}<br>
+    <strong>Address:</strong> {{ order.address }}<br>
+    <strong>Order Status:</strong> {{ order.status }}<br>
+
+
+  </div>
+  <div class="card-body">
+    {% for item in order.items %}
+      <strong>Mobile Name:</strong> {{ item.product.mobile_name }}<br>
+      <strong>Quantity: </strong>{{ item.quantity }}<br>
+      <strong>Price:</strong> ₹{{ item.product.price }}<br>
+      <hr>
+    {% endfor %}
+    <h5 class="text-end">Total: ₹{{ order.total }}</h5>
+  </div>
+</div>
 {% endfor %}
+
 {% endblock %}
 
 

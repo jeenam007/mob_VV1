@@ -1,0 +1,53 @@
+{% extends 'mobile/index.html' %}
+
+{% block welcome_message %}
+<h5>Place Order</h5>
+{% endblock %}
+
+{% block body_block %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow rounded">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Place Your Order</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="customer_name">Customer Name</label>
+                            <input type="text" name="customer_name" id="customer_name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email_id">Email</label>
+                            <input type="email" name="email_id" id="email_id" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mob_no">Mobile No.</label>
+                            <input type="number" name="mob_no" id="mob_no" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Delivery Address</label>
+                            <textarea name="address" id="address" rows="3" class="form-control" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-block">Place Order</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+  

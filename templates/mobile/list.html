@@ -13,12 +13,19 @@
       style="margin-top: 10px"
       >Add User</a>
   </div>
-</div>    
+</div> 
+{% if messages %} {% for message in messages %}
+    <div
+      class="alert"
+      style="background-color: #7dda58; color: white; text-align: center">
+      {{ message }}
+    </div>
+    {%endfor%} {%endif%}
+
    <style>
     .custom-border {
         border: 1px solid black;
-    }
-    
+    }  
 </style>
    <table class="table">
 
@@ -42,8 +49,14 @@
             <td>{{mobile_obj.date}}</td>
             <td>
             <a href="{% url 'mobileapp:edit' mobile_obj.id %}" class="btn btn-success">Edit</a>
-            <a href="{% url 'mobileapp:delete' mobile_obj.id %}" class="btn btn-danger">Delete</a>
+             <a href="{% url 'mobileapp:delete' mobile_obj.id %}" 
+             class="btn btn-danger" 
+             onclick="return confirm('Are you sure you want to delete this item?')">
+             Delete
+             </a>
+
             <a href="{% url 'mobileapp:detail' mobile_obj.id %}" class="btn btn-warning">View</a>
+
             
         </tr>
         {%endfor%}

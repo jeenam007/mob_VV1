@@ -15,8 +15,8 @@
           style="margin-top: 10px"
           >Add User</a>
       </div>
-      
     </div>
+    
     {% if messages %} {% for message in messages %}
     <div
       class="alert"
@@ -52,11 +52,11 @@
             class="btn btn-success"
             >Edit</a
           >
-          <a
-            href="{% url 'customerapp:deluser' user_obj.id %}"
-            class="btn btn-danger"
-            >Delete</a
-          >
+            <a href="{% url 'customerapp:deluser' user_obj.id %}" 
+            class="btn btn-danger" 
+            onclick="return confirm('Are you sure you want to delete this item?')">
+            Delete
+            </a>
           <a
             href="{% url 'customerapp:userdetl' user_obj.id %}"
             class="btn btn-warning"

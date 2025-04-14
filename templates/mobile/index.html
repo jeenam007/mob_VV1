@@ -11,7 +11,6 @@
         <!-- Favicon-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
-       
         <script src="https://kit.fontawesome.com/cf946ba165.js" crossorigin="anonymous"></script>
 
         
@@ -19,7 +18,7 @@
     </head>
     
     {% comment %} <body class="d-flex flex-column min-vh-100"> {% endcomment %}
-      <div style="background-color:#CECECE; min-height: 100vh; padding-top: 20px;">
+      <div style="background-color:#CECECE; min-height: 100vh; padding-top: 10px;">
         <div class="d-flex" id="wrapper" >
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper" >
@@ -35,7 +34,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'mobileapp:list' %}">List Product</a>
                     <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'customerapp:register'%}">Register User</a>
                     <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'customerapp:userlist' %}">List User</a>
-                    <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'mobileapp:order_status' %}">Status</a>
+                    <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'mobileapp:order_status' %}">Order Summary</a>
                 </div>
             </div>
             <!-- Page content wrapper-->

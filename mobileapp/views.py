@@ -6,7 +6,9 @@ from django.contrib import messages
 # from django.contrib.auth.decorators import login_required
 from .decorators import login_required
 import uuid
+from django.utils import timezone
 from collections import defaultdict
+
 
 
 # Create your views here.
@@ -55,6 +57,7 @@ def list_Products(request):
 def deletepdt(request,id):
     instance=Mobile.objects.get(id=id)
     instance.delete()
+    messages.success(request, "Product deleted successfully!")
     return redirect('mobileapp:list')
 
 @login_required
@@ -115,38 +118,66 @@ def decrease_quantity(request,id):
 
 @login_required
 def place_order(request, id):
-    cart_item = Cart.objects.filter(user=request.user, status='cart')
-    if not cart_item.exists():
-        return redirect('mobileapp:viewcart')
-    
-    order_id = str(uuid.uuid4())[:8]  # Unique order ID
-    # Update the status to "orderplaced"
-    for item in cart_item:
-        item.status = 'orderplaced'
-        item.order_id = order_id
-        item.save()
-        print(order_id)
-    return redirect('mobileapp:order_status')
+    if request.method == "POST":
+        customer_name=request.POST.get('customer_name')
+        address = request.POST.get("address")
+        mob_no=request.POST.get('mob_no')
+        email_id=request.POST.get('email_id')
+        cart_item = Cart.objects.filter(user=request.user, status='cart')
+        if not cart_item.exists():
+            return redirect('mobileapp:viewcart')
+        
+        order_id = str(uuid.uuid4())[:8]  # Unique order ID
+        purchased_date = cart_item[0].purchased_date
+        # Update the status to "orderplaced"
+        for item in cart_item:
+            item.status = 'orderplaced'
+            item.purchased_date=purchased_date
+            item.address=address
+            item.order_id = order_id
+            item.customer_name=customer_name
+            item.mob_no=mob_no
+            item.email_id=email_id
+            item.save()
+            print(order_id)
+        return redirect('mobileapp:order_status')
+    return render(request, 'mobile/placeorder.html')
 
 @login_required
 def order_status(request):
-    # Get all items with status 'orderplaced' for this user
-    orders = Cart.objects.filter(user=request.user, status='orderplaced')
-    grouped_orders = defaultdict(list)
+    if request.user.is_superuser:
+        orders = Cart.objects.filter(status='orderplaced').order_by('-purchased_date')
+    else:
+        orders = Cart.objects.filter(user=request.user, status='orderplaced').order_by('-purchased_date')
 
+
+    # Get all items with status 'orderplaced' for this user
+    
+    grouped_orders = defaultdict(list)
 
     for item in orders:
         grouped_orders[item.order_id].append(item)
-    # Calculate total price
 
-
+    
     summary = []
+    
+
     for order_id, items in grouped_orders.items():
         total = sum(i.quantity * i.product.price for i in items)
+        purchased_date = items[0].purchased_date if items else ""      
         summary.append({
+            'purchased_date': purchased_date,
             'order_id': order_id,
             'items': items,
-            'total': total
+            'total': total,
+            'username':items[0].user,
+            'customer_name':items[0].customer_name,
+            'mob_no':items[0].mob_no,
+            'email_id':items[0].email_id,
+            'address':items[0].address,
+            'status':items[0].status if items else 'NA',
+            
+
         })
 
     return render(request, 'mobile/orderstatus.html', {'orders': summary})
