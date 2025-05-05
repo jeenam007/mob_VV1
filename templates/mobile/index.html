@@ -1,179 +1,103 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Simple Sidebar - Start Bootstrap Template</title>
-        <link rel="icon" href="{% static 'img/fav.png' %}" >
-        <!-- Favicon-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
-        <script src="https://kit.fontawesome.com/cf946ba165.js" crossorigin="anonymous"></script>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home</title>
+    <link rel="icon" href="{% static 'img/fav.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/cf946ba165.js" crossorigin="anonymous"></script>
+</head>
 
-        
+<body class="d-flex flex-column min-vh-100">
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <nav class="bg-dark text-white p-3" id="sidebar-wrapper" style="min-width: 220px; height: 100vh;">
+            <h4 class="text-white border-bottom pb-2">Mobile Products</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link text-white" href="{% url 'mobileapp:home' %}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{% url 'mobileapp:viewcart' %}">My Cart <i class="fa-solid fa-cart-shopping ms-1"></i></a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{% url 'mobileapp:create' %}">Add Product</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{% url 'mobileapp:list' %}">List Product</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{% url 'customerapp:register' %}">Register User</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{% url 'customerapp:userlist' %}">List User</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{% url 'mobileapp:order_status' %}">Order Summary</a></li>
+            </ul>
+        </nav>
 
-    </head>
-    
-    {% comment %} <body class="d-flex flex-column min-vh-100"> {% endcomment %}
-      <div style="background-color:#CECECE; min-height: 100vh; padding-top: 10px;">
-        <div class="d-flex" id="wrapper" >
-            <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper" >
-                <div class="sidebar-heading border-bottom bg-dark text-white ">Mobile Products</div>
-                <div class="list-group list-group-flush">
-
-                    <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'mobileapp:home' %}">Dashboard</a>
-                    <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'mobileapp:viewcart' %}">
-                      My Cart <i class="fa-solid fa-cart-shopping ms-2"></i>
-                    </a>
-                    
-                    <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'mobileapp:create'%}">Add Product</a>
-                    <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'mobileapp:list' %}">List Product</a>
-                    <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'customerapp:register'%}">Register User</a>
-                    <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'customerapp:userlist' %}">List User</a>
-                    <a class="list-group-item list-group-item-action list-group-item-dark p-3" href="{% url 'mobileapp:order_status' %}">Order Summary</a>
-                </div>
-            </div>
-            <!-- Page content wrapper-->
-           <div id="page-content-wrapper" >
-                <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">                    
-                       
-                    <div class="container"> 
-                        <button class="btn btn-light" id="sidebarToggle">☰</button>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                                <li class=""><a class="nav-link" style="color:white;" href="{% url 'mobileapp:home' %}">Home</a></li>
-                                <li class="">
-                                <a class="nav-link" style="color:white;"  href="{% url 'customerapp:userlogin' %}" > Logout</a>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{% url 'customerapp:userlogin' %}">Logout</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+        <!-- Page Content -->
+        <div class="flex-grow-1 bg-light">
+            <!-- Top Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <button class="btn btn-outline-light me-2" id="sidebarToggle">☰</button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'mobileapp:home' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'customerapp:userlogin' %}">Logout</a>
+                            </li>
+                        </ul>
                     </div>
-                </nav>
-               
-                
-                {% block welcome_message %}
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="color:#060270;"><strong>Mobile Products</strong></span>
-                    <span style="color:#060270;"><strong>Welcome {{ request.user }}</strong></span>
-                  </div>
-                  
-              {% endblock %}
-                 
-                <!-- Page content-->
-                <div class="container-fluid">
-                  {% block body_block %}
-                  <div class="container mt-4">
-                    <div class="row justify-content-center">
-                      {% for mobile in mob %}
-                        <div class="col-md-4 d-flex justify-content-center mb-4">
-                          <div class="card" style="width: 14rem;">
-                           
-                            <img src="{{ mobile.image.url }}" class="card-img-top"  alt="{{ mobile.brand }}"  style="height: 180px; object-fit: cover;">
+                </div>
+            </nav>
 
+            <!-- Welcome Message -->
+            {% block welcome_message %}
+            <div class="bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 text-primary">Mobile Products</h5>
+                <span class="text-secondary">Welcome {{ request.user }}</span>
+            </div>
+            {% endblock %}
+
+            <!-- Main Content -->
+            <main class="container-fluid py-4">
+                {% block body_block %}
+                <div class="row g-4">
+                    {% for mobile in mob %}
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="{{ mobile.image.url }}" class="card-img-top" alt="{{ mobile.brand }}" style="height: 180px; object-fit: cover;">
                             <div class="card-body">
-                              <h5 class="card-title">{{ mobile.mobile_name }}</h5>
-                              
+                                <h5 class="card-title">{{ mobile.mobile_name }}</h5>
                             </div>
                             <ul class="list-group list-group-flush">
-                              <li class="list-group-item">Price: ₹{{ mobile.price }}</li>
-                              <li class="list-group-item">Brand: {{ mobile.brand }}</li>
-                              <li class="list-group-item">Description: {{ mobile.specs }}</li>
-                             
+                                <li class="list-group-item">Price: ₹{{ mobile.price }}</li>
+                                <li class="list-group-item">Brand: {{ mobile.brand }}</li>
+                                <li class="list-group-item">Description: {{ mobile.specs }}</li>
                             </ul>
-                            <div class="card-body">
-                              <a href="{% url 'mobileapp:detail' mobile.id %}" class="btn btn-sm btn-secondary">View Details</a>
-                              <a href="{% url 'mobileapp:addcart' mobile.id %}" class="btn btn-sm btn-secondary">Add to Cart</a>
+                            <div class="card-body d-flex justify-content-between">
+                                <a href="{% url 'mobileapp:detail' mobile.id %}" class="btn btn-outline-primary btn-sm">Details</a>
+                                <a href="{% url 'mobileapp:addcart' mobile.id %}" class="btn btn-primary btn-sm">Add to Cart</a>
                             </div>
-                          </div>
                         </div>
-                      {% empty %}
-                        <p>No mobiles available.</p>
-                      {% endfor %}
                     </div>
-                  </div>
-                  {% endblock %}
+                    {% empty %}
+                    <div class="col-12 text-center">
+                        <p class="text-muted">No mobiles available.</p>
+                    </div>
+                    {% endfor %}
                 </div>
-            </div>
+                {% endblock %}
+            </main>
+{% comment %} 
+            <!-- Footer -->
+            <footer class="bg-dark text-white text-center py-2 mt-auto"
+            style="position: fixed; height:60px;  bottom: 0; width: 100%; z-index: 1030;">
+                <div class="container">
+                    <small>&copy; {{ now|date:"Y" }} Mobile Products. All rights reserved.</small><br>
+                    <small>Designed with ❤️ using Bootstrap</small>
+                </div>
+            </footer> {% endcomment %}
         </div>
-      </div>
-        
-         
-<footer class="bg-secondary text-white text-center py-1" style="position: fixed; height:50px;  bottom: 0; width: 100%; z-index: 1030;">
-  <div class="container-fluid">
-    <small>&copy; {{ now|date:"Y" }} Mobile Products. All rights reserved.</small><br>
-    <small>Designed with ❤️ using Bootstrap</small>
-  </div>
-</footer>
-  
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="{% static "js/scripts.js" %}">
-          
+    </div>
 
-        </script>
-        <!-- Footer -->
-    </body>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

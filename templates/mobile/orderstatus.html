@@ -5,9 +5,19 @@
 {% endblock %}
 
 {% block body_block %}
+{% if messages %} {% for message in messages %}
+    <div
+      class="alert"
+      style="background-color: #7dda58; color: white; text-align: center">
+      {{ message }}
+    </div>
+    {%endfor%} {%endif%}
+
+
 {% for order in orders %}
 <div class="card mb-4">
   <div class="card-header py-2" style="background-color:#060270; color:white">
+    <strong>SL No. : </strong>{{ forloop.counter }}<br>
     <strong>Order ID:</strong>{{ order.order_id|default:"N/A" }}<br>
     <strong>Purchased:</strong> {{ order.purchased_date|date:"Y-m-d h:i A" }}<br>
     <strong>User:</strong> {{ order.username }}<br>  {# ✅ This line #}
@@ -18,9 +28,17 @@
     <strong>Email:</strong> {{ order.email_id |default:"" }}<br>
     <strong>Address:</strong> {{ order.address }}<br>
     <strong>Order Status:</strong> {{ order.status }}<br>
-
-
   </div>
+
+  {% if order.status == "orderplaced" %}
+  <div class="text-end">
+    
+    <a href="{% url 'mobileapp:cancel_order' order.order_id %}"  class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this order?')">
+    Cancel Order
+    </a>
+  </div>
+  {% endif %}
+
   <div class="card-body">
     {% for item in order.items %}
       <strong>Mobile Name:</strong> {{ item.product.mobile_name }}<br>

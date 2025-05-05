@@ -10,7 +10,6 @@ urlpatterns = [
     path('edituser/<int:id>/',views.useredit,name='edituser'),
     path('userdetail/<int:id>/',views.userdet,name='userdetl'),
     path('',views.login_view,name='userlogin'),
-   
     path('home1/',views.home_v,name='home1'),
     
 ]

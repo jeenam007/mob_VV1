@@ -8,6 +8,7 @@ from .decorators import login_required
 import uuid
 from django.utils import timezone
 from collections import defaultdict
+from django.core.paginator import Paginator
 
 
 
@@ -50,8 +51,16 @@ def edit_pdtlist(request,id):
 
 def list_Products(request):
     pdt=Mobile.objects.all()
-    context={'pdt':pdt}
+    paginator = Paginator(pdt, 6) 
+
+    page_number = request.GET.get('page')  # Get the current page number from the URL
+    page_obj = paginator.get_page(page_number)  # Get page object
+
+    context={'page_obj':page_obj}
     return render(request,'mobile/list.html',context)
+
+
+
 
 
 def deletepdt(request,id):
@@ -71,7 +80,7 @@ def add_to_cart(request, id):
 
         cart_item, created = Cart.objects.get_or_create(
         product=product,
-        user=request.user.username,  # Use request.user if your model uses ForeignKey
+        user=request.user.username, 
         status="cart",
         defaults={'quantity': 1})
     
@@ -146,10 +155,15 @@ def place_order(request, id):
 @login_required
 def order_status(request):
     if request.user.is_superuser:
-        orders = Cart.objects.filter(status='orderplaced').order_by('-purchased_date')
-    else:
-        orders = Cart.objects.filter(user=request.user, status='orderplaced').order_by('-purchased_date')
+        orders = Cart.objects.filter(
+    status__in=['orderplaced', 'cancelled'],
+    ).order_by('-purchased_date')
 
+    else:
+        orders = Cart.objects.filter(
+    status__in=['orderplaced', 'cancelled'],
+    user=request.user
+    ).order_by('-purchased_date')
 
     # Get all items with status 'orderplaced' for this user
     
@@ -176,8 +190,18 @@ def order_status(request):
             'email_id':items[0].email_id,
             'address':items[0].address,
             'status':items[0].status if items else 'NA',
-            
-
         })
 
     return render(request, 'mobile/orderstatus.html', {'orders': summary})
+def cancel_order(request, order_id):
+    # Find all matching cart items for this order
+    
+    carts = Cart.objects.filter(order_id=order_id, user=request.user, status='orderplaced')
+
+    if carts.exists():
+        carts.update(status='cancelled')
+        messages.success(request, "Order cancelled successfully!")
+    else:
+        messages.warning(request, "No matching order found to cancel.")
+
+    return redirect('mobileapp:order_status')
