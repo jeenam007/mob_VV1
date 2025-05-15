@@ -46,6 +46,7 @@ class Cart(models.Model):
    address = models.CharField(max_length=300, blank=True, null=True)
    mob_no = models.BigIntegerField(blank=True, null=True)
    email_id=models.EmailField(blank=True,null=True)
+   
    def get_total_price(self):
         return self.quantity * self.product.price
    

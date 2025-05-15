@@ -20,20 +20,17 @@ def home(request):
 
 
 def create_product(request):
-    if request.method=="GET":
-        form=ProductCreateForm()
-        return render(request,'mobile/create.html',{'form':form})
-    
-    elif request.method=="POST":
+    if request.method == "POST":
         form=ProductCreateForm(request.POST,files=request.FILES)
-        messages.success(request, "Product created successfully!")
         if form.is_valid():
             form.save()
-
+            messages.success(request, "Product created successfully!")
             return redirect('mobileapp:list')
         else:
-            
-            return render(request,'mobile/create.html',{'form':form})
+            messages.error(request,"There was an error in the form. Please correct it.")
+    else:
+        form = ProductCreateForm()
+    return render(request,'mobile/create.html',{'form':form})
     
 
 def edit_pdtlist(request,id):
@@ -43,6 +40,7 @@ def edit_pdtlist(request,id):
         form=ProductCreateForm(request.POST,request.FILES,instance=instance_edit)
         if form.is_valid():
           form.save()
+          messages.success(request, "Product updated successfully!")
           return redirect('mobileapp:list')
     else:
         form=ProductCreateForm(instance=instance_edit)

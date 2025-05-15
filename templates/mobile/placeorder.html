@@ -19,23 +19,23 @@
                         {% csrf_token %}
 
                         <div class="form-group">
-                            <label for="customer_name">Customer Name</label>
+                            <label for="customer_name">Customer Name*</label>
                             <input type="text" name="customer_name" id="customer_name" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="email_id">Email</label>
+                            <label for="email_id">Email*</label>
                             <input type="email" name="email_id" id="email_id" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="mob_no">Mobile No.</label>
+                            <label for="mob_no">Mobile No.*</label>
                             <input type="number" name="mob_no" id="mob_no" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label for="address">Delivery Address</label>
-                            <textarea name="address" id="address" rows="3" class="form-control" required></textarea>
+                            <textarea name="address" id="address" rows="3" class="form-control" ></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-success btn-block">Place Order</button>
